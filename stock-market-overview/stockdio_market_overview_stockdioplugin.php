@@ -4,11 +4,11 @@
 	Plugin URI: http://www.stockdio.com
 	Description: At-a-glance display of stock market, with categories for Equities, Indices, Commodities and Currencies. Supports over 65 world exchanges.
 	Author: Stockdio
-	Version: 1.6.16
+	Version: 1.6.17
 	Author URI: http://www.stockdio.com
 */
 //set up the admin area options page
-define('stockdio_overview_version','1.6.16');
+define('stockdio_overview_version','1.6.17');
 define( 'stockdio_market_overview__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 class StockdioMarketOverviewSettingsPage
 {
