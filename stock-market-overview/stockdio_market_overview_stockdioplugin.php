@@ -4,11 +4,11 @@
 	Plugin URI: http://www.stockdio.com
 	Description: At-a-glance display of stock market, with categories for Equities, Indices, Commodities and Currencies. Supports over 65 world exchanges.
 	Author: Stockdio
-	Version: 1.6.18
+	Version: 1.6.19
 	Author URI: http://www.stockdio.com
 */
 //set up the admin area options page
-define('stockdio_overview_version','1.6.18');
+define('stockdio_overview_version','1.6.19');
 define( 'stockdio_market_overview__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 class StockdioMarketOverviewSettingsPage
 {
@@ -1615,6 +1615,7 @@ function stockdio_market_overview_func( $atts ) {
 	if (strpos($height, 'px') !== FALSE && strpos($height, '%') !== FALSE) 
 		$height =$height.'px';
 	if (!empty($height)){
+		$height = esc_attr($height);
 		$extraSettings .= '&height='.urlencode($height);
 		$iframeHeight=' height="'.$height.'" ';
 	}
@@ -1642,8 +1643,16 @@ function stockdio_market_overview_func( $atts ) {
 	$src = 'src';
 	if ($loaddatawhenvisible == "1" || $loaddatawhenvisible == "true") 
 		$src = 'iframesrc';		
+
+		$srcurl = $link.'?app-key='.$api_key.'&wp=1&addVolume=false&showUserMenu=false'.$extraSettings;
+
+		//Escaping the src url before output: 
+		$srcurl = esc_url($srcurl);
 	
-	$output = '<iframe referrerpolicy="no-referrer-when-downgrade" id="'.$iframe_id.'" frameBorder="0" class="stockdio_market_overview" scrolling="no" width="'.$width.'" '.$iframeHeight.' '.$src.'="'.$link.'?app-key='.$api_key.'&wp=1&addVolume=false&showUserMenu=false'.$extraSettings.'"></iframe>';  		
+		$width = esc_attr($width);
+		$iframe_id = esc_attr($iframe_id);		
+	
+	$output = '<iframe referrerpolicy="no-referrer-when-downgrade" id="'.$iframe_id.'" frameBorder="0" class="stockdio_market_overview" scrolling="no" width="'.$width.'" '.$iframeHeight.' '.$src.'="'.$srcurl.'"></iframe>';  		
   	//return completed string
   	return $output;
 
