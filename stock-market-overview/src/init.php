@@ -36,6 +36,33 @@ function market_overview_cgb_editor_assets() {
 		true // Enqueue the script in the footer.
 	);
 
+	    // ✅ Make settings available for the block editor (Gutenberg only)
+    $opts = get_option('stockdio_market_overview_options');
+    if (!is_array($opts)) $opts = array();
+
+    wp_add_inline_script(
+        'market-overview-cgb-block-js',
+        'window.stockdio_market_overview_settings = ' . wp_json_encode($opts) . ';',
+        'before'
+    );
+
+	    // ✅ Load search modal assets only in Gutenberg editor
+    wp_enqueue_script(
+        'stockdio-search-block-js',
+        plugins_url('/assets/stockdio_search.js?v='.$version, dirname(__FILE__)),
+        array('wp-element', 'wp-components', 'wp-i18n', 'jquery'),
+        $version,
+        true
+    );
+
+    wp_enqueue_style(
+        'stockdio-search-block-css',
+        plugins_url('/assets/stockdio_search.css?v='.$version, dirname(__FILE__)),
+        array('wp-components'),
+        $version
+    );
+
+
 	// Styles.
 	wp_enqueue_style(
 		'market-overview-cgb-block-editor-css', // Handle.

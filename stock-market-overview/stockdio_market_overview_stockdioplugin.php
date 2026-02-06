@@ -4,11 +4,11 @@
 	Plugin URI: http://www.stockdio.com
 	Description: At-a-glance display of stock market, with categories for Equities, Indices, Commodities and Currencies. Supports over 65 world exchanges.
 	Author: Stockdio
-	Version: 1.6.19
+	Version: 1.6.20
 	Author URI: http://www.stockdio.com
 */
 //set up the admin area options page
-define('stockdio_overview_version','1.6.19');
+define('stockdio_overview_version','1.6.20');
 define( 'stockdio_market_overview__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 class StockdioMarketOverviewSettingsPage
 {
@@ -60,8 +60,8 @@ class StockdioMarketOverviewSettingsPage
         add_action( 'admin_menu', array( $this, 'stockdio_market_overview_add_plugin_page' ) );
         add_action( 'admin_init', array( $this, 'stockdio_market_overview_page_init' ) );
 		add_action( 'admin_notices', array( $this, 'stockdio_market_overview_display_notice' ) );
-		add_action('admin_head', 'stockdio_market_overview_stockdio_js');
-		add_action('admin_head', 'stockdio_market_overview_charts_button');
+		//add_action('admin_head', 'stockdio_market_overview_stockdio_js');
+		//add_action('admin_head', 'stockdio_market_overview_charts_button');
     }
 	
     /**
@@ -480,7 +480,7 @@ class StockdioMarketOverviewSettingsPage
 				'setting_section_id' // Section           
 			); 					
 		}
-		
+		/*
 		$plugin_data = get_plugin_data( __FILE__ );
 		$plugin_version = $plugin_data['Version'];
 		$css_address=plugin_dir_url( __FILE__ )."assets/stockdio-wp.css";
@@ -517,6 +517,7 @@ class StockdioMarketOverviewSettingsPage
 			wp_register_script("customStockdioSearchJS",$js_addressSearch, array( 'wp-api', 'wp-i18n', 'wp-components', 'wp-element' ), $version, false );
 		}
 		wp_enqueue_script('customStockdioSearchJS');
+		*/
     }
 
 	public function stockdio_market_overview_sanitize( $input )
@@ -1344,7 +1345,7 @@ class StockdioMarketOverviewSettingsPage
 if( is_admin() )
     $stockdio_market_overview_settings_page = new StockdioMarketOverviewSettingsPage();
 
-add_action('wp_print_scripts', 'enqueueMarketOverviewAssets');
+add_action('wp_enqueue_scripts', 'enqueueMarketOverviewAssets');
 
 //Add the shortcode
 add_shortcode( 'stock-market-overview', 'stockdio_market_overview_func' );
@@ -1379,13 +1380,14 @@ if ( ! function_exists( 'stockdio_referrer_header_metadata' ) ) {
 
 function enqueueMarketOverviewAssets()
 {	
+	if (is_admin()) return; // ✅ NO admin
 	//$plugin_data = get_plugin_data( __FILE__ );
 	//$plugin_version = $plugin_data['Version'];
 	//stockdio_overview_version
 	//$version = date_timestamp_get(date_create());
 	$version = stockdio_overview_version;
 	$js_address=plugin_dir_url( __FILE__ )."assets/stockdio-wp.js";
-	wp_register_script("customStockdioJs",$js_address, array(),$version, false );
+	wp_register_script("customStockdioJs",$js_address, array(),$version, true );
 	wp_enqueue_script('customStockdioJs');
 }
 
@@ -1837,4 +1839,65 @@ function stockdio_market_overview_func( $atts ) {
 			}
 		}
 	}
+
+	add_action('admin_enqueue_scripts', 'stockdio_market_overview_admin_enqueue', 20);
+
+function stockdio_market_overview_admin_enqueue($hook) {
+
+    // Cambia estos valores si tu página usa otro hook
+    $allowed = array(
+        'settings_page_stockdio-market-overview-settings-config',
+        'jetpack_page_stockdio-market-overview-settings-config',
+    );
+
+    if (!in_array($hook, $allowed, true)) {
+        return; // NO cargar nada fuera de tu página
+    }
+
+    $version = defined('stockdio_overview_version') ? stockdio_overview_version : '1.0.0';
+
+    wp_enqueue_script('jquery');
+
+    wp_enqueue_style(
+        'stockdio-admin-css',
+        plugin_dir_url(__FILE__) . 'assets/stockdio-wp.css',
+        array(),
+        $version
+    );
+
+    wp_enqueue_script(
+        'stockdio-admin-js',
+        plugin_dir_url(__FILE__) . 'assets/stockdio-wp.js',
+        array('jquery'),
+        $version,
+        true
+    );
+
+	    // ✅ Reponer variable global que antes metías con admin_head
+    $opts = get_option('stockdio_market_overview_options');
+    if (!is_array($opts)) $opts = array();
+
+    wp_add_inline_script(
+        'stockdio-admin-js',
+        'window.stockdio_market_overview_settings = ' . wp_json_encode($opts) . ';',
+        'before'
+    );
+
+
+    wp_enqueue_style(
+        'stockdio-search-css',
+        plugin_dir_url(__FILE__) . 'assets/stockdio_search.css',
+        array(),
+        $version
+    );
+
+    wp_enqueue_script(
+        'stockdio-search-js',
+        plugin_dir_url(__FILE__) . 'assets/stockdio_search.js',
+        array('jquery'),
+        $version,
+        true
+    );
+}
+
 ?>

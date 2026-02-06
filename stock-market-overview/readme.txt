@@ -3,8 +3,8 @@ Contributors: stockdio
 Tags: stocks, ticker, quote, finance, quotes, stock, financial, index, indices, market, list, overview, commodity, commodities, currency, currencies, forex, foreign exchange, equity, equities
 License: See www.stockdio.com/wordpress for details.
 Requires at least: 3.1
-Tested up to: 6.7.2
-Stable tag: 1.6.19
+Tested up to: 6.9
+Stable tag: 1.6.20
 At-a-glance display of stock market, with categories for Equities, Indices, Commodities and Currencies. Supports over 65 world exchanges.
 
 == Description ==
@@ -220,6 +220,11 @@ Simply send an email to info@stockdio.com with your question and we will reply a
 14. Stock Market Overview block sidebar settings.
 
 == Changelog ==
+= 1.16.20 =
+Release date: January 08, 2026
+
+* Fixes a compatibility issue in the WordPress admin area that could prevent some editors from working correctly.
+
 = 1.16.19 =
 Release date: February 28, 2025
 
