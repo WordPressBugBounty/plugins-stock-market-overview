@@ -4,11 +4,11 @@
 	Plugin URI: http://www.stockdio.com
 	Description: At-a-glance display of stock market, with categories for Equities, Indices, Commodities and Currencies. Supports over 65 world exchanges.
 	Author: Stockdio
-	Version: 1.6.20
+	Version: 1.6.22
 	Author URI: http://www.stockdio.com
 */
 //set up the admin area options page
-define('stockdio_overview_version','1.6.20');
+define('stockdio_overview_version','1.6.22');
 define( 'stockdio_market_overview__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 class StockdioMarketOverviewSettingsPage
 {
@@ -757,7 +757,7 @@ class StockdioMarketOverviewSettingsPage
 				<option value="BCPP">Prague Stock Exchange</option>					
 				<option value="AMSE">Amman Stock Exchange</option>		
              </select>
-			 <p class="description" id="tagline-description">The exchange market the symbols belong to (optional). If not specified, NYSE/NASDAQ will be used by default. For a list of available exchanges please visit <a href="http://www.stockdio.com/exchanges?wp=1" target="_blank">http://www.stockdio.com/exchanges.</a></p>
+			 <p class="description" id="tagline-description">The exchange market the symbols belong to (optional). If not specified, USA Equities will be used by default. For a list of available exchanges please visit <a href="http://www.stockdio.com/exchanges?wp=1" target="_blank">http://www.stockdio.com/exchanges.</a></p>
 				<script>document.getElementById("default_exchange").value = "'.$this->options['default_exchange'].'";
 				jQuery("#default_exchange_label").text(jQuery("#default_exchange option:selected").text() + " (Exchange code: " + jQuery("#default_exchange").val() +  ")" );
 				</script>

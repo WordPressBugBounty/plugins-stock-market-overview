@@ -1,10 +1,10 @@
 === Stock Market Overview ===
 Contributors: stockdio
-Tags: stocks, ticker, quote, finance, quotes, stock, financial, index, indices, market, list, overview, commodity, commodities, currency, currencies, forex, foreign exchange, equity, equities
-License: See www.stockdio.com/wordpress for details.
+Tags: stocks, ticker, graph, finance, chart
+License: See www.stockdio.com/wordpress for details
 Requires at least: 3.1
-Tested up to: 6.9
-Stable tag: 1.6.20
+Tested up to: 7.04
+Stable tag: 1.6.22
 At-a-glance display of stock market, with categories for Equities, Indices, Commodities and Currencies. Supports over 65 world exchanges.
 
 == Description ==
@@ -27,7 +27,7 @@ This plugin is part of the Stockdio Financial Widgets, which also includes the f
 
 The following parameters are supported in the shortcode and also available through the plugin's settings page:
 
-**stockExchange**: The exchange market the symbols belong to (optional). If not specified, NYSE/NASDAQ will be used by default. For a list of available exchanges please visit www.stockdio.com/exchanges.
+**stockExchange**: The exchange market the symbols belong to (optional). If not specified, USA Equities will be used by default. For a list of available exchanges please visit www.stockdio.com/exchanges.
 
 **includeEquities**: If enabled (true), the Equities category will be included in the list (optional).
 
@@ -147,7 +147,7 @@ You can specify as many symbols as you want, from the selected exchange, separat
 
 = Can I combine more than one stock exchange on the same list? =
 
-Yes. The exchange you define in the stockExchange parameter will be the default stock exchange to be used. However, if you want to include symbols from a different exchange, you must prefix the symbol with the exchange code and a colon (:). For example, if you want to include two symbols from NYSE/Nasdaq but additionally include one symbol from London Stock Exchange, you would specify stockExchange="USA", and equities="AAPL;MSFT;LSE:BAG".
+Yes. The exchange you define in the stockExchange parameter will be the default stock exchange to be used. However, if you want to include symbols from a different exchange, you must prefix the symbol with the exchange code and a colon (:). For example, if you want to include two symbols from USA Equities but additionally include one symbol from London Stock Exchange, you would specify stockExchange="USA", and equities="AAPL;MSFT;LSE:BAG".
 
 = Can I include one or more market indices in the stock market overview? =
 
@@ -191,7 +191,7 @@ Simply send an email to info@stockdio.com with your question and we will reply a
 
 == Screenshots ==
 
-1. Example of stock market overview used to display a NYSE/Nasdaq.
+1. Example of stock market overview used to display a USA Equities.
 
 2. Example of stock market overview, with interactive chart.
 
@@ -220,6 +220,16 @@ Simply send an email to info@stockdio.com with your question and we will reply a
 14. Stock Market Overview block sidebar settings.
 
 == Changelog ==
+= 1.16.22 =
+Release date: August 16, 2026
+
+* Added compatibility with WordPress 7.0.4.
+
+= 1.16.21 =
+Release date: January 15, 2026
+
+* Minor bug fixes.
+
 = 1.16.20 =
 Release date: January 08, 2026
 
